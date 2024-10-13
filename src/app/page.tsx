@@ -59,7 +59,7 @@ const SongPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-gray-600 to-blue-300">
       <div className="flex flex-col items-center">
         <MobileFrame>
           <div className="h-full flex flex-col">
