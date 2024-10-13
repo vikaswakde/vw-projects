@@ -52,7 +52,7 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
   return (
     <div
       ref={containerRef}
-      className="lyrics-container font-['Noto_Sans_Devanagari'] text-4xl leading-relaxed h-full flex flex-col items-center bg-gradient-to-b from-purple-900 to-black text-white p-4  overflow-y-auto"
+      className="lyrics-container font-['Noto_Sans_Devanagari'] text-3xl leading-relaxed h-full flex flex-col items-center bg-gradient-to-b from-purple-900 to-black text-white p-4 overflow-y-auto mt-5 scrollbar-hide"
       style={{
         letterSpacing: "0.03em",
         fontWeight: 700,
@@ -62,11 +62,15 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
     >
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap');
-        .lyrics-container::-webkit-scrollbar {
+        .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
       `}</style>
-      {/* <div className="h-1/6 min-h-[1.5rem]"></div> */}
+      <div className="h-1/6 min-h-[2rem]"></div>
       <AnimatePresence>
         {lyricsData.map((line, lineIndex) => (
           <motion.div
@@ -75,11 +79,11 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
             animate={{
               opacity: lineIndex === activeLineIndex ? 1 : 0.3,
               y: 0,
-              scale: lineIndex === activeLineIndex ? 1.1 : 1,
+              scale: lineIndex === activeLineIndex ? 1.05 : 1,
             }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className={`lyric-line mb-10 text-center max-w-[90%]`}
+            className={`lyric-line mb-8 text-center max-w-[95%]`}
           >
             {line.map((item, itemIndex) => (
               <motion.span
@@ -107,7 +111,7 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
           </motion.div>
         ))}
       </AnimatePresence>
-      <div className="h-2/3 min-h-[10.25rem]"></div>
+      <div className="h-1/2 min-h-[8rem]"></div>
     </div>
   );
 };

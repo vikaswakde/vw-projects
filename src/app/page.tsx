@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import LyricsAnimation from "./components/LyricsAnimation";
-import MobileFrame from "./components/MobileFrame";
+import { DeviceFrameset } from "react-device-frameset";
+import "react-device-frameset/styles/marvel-devices.min.css";
 import { lyricTimings, lyricsData } from "./song/test";
 
 const SongPage: React.FC = () => {
@@ -61,10 +62,10 @@ const SongPage: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-gray-600 to-blue-300">
       <div className="flex flex-col items-center">
-        <MobileFrame>
+        <DeviceFrameset device="iPhone X" color="black">
           <div className="h-full flex flex-col">
             {(showInfo && !isPlaying) || isAudioEnded ? (
-              <div className="flex-1 overflow-y-auto p-4 bg-gradient-to-b from-purple-900 to-black text-white scrollbar-hide">
+              <div className="flex-1 overflow-y-auto p-4 bg-gradient-to-b from-purple-900 to-black text-white scrollbar-hide pt-10">
                 <style jsx>{`
                   .scrollbar-hide::-webkit-scrollbar {
                     display: none;
@@ -75,52 +76,97 @@ const SongPage: React.FC = () => {
                   }
                 `}</style>
                 <h3 className="text-2xl font-bold mb-4">About this Abhang</h3>
-                <p className="mb-4 text-purple-200">This is an abhang (devotional poem) by Sant Eknath, a 16th-century Marathi saint-poet from Maharashtra, India.</p>
-                <a href="https://www.aathavanitli-gani.com/Song/Are_Krishna_Are_Kanha" target="_blank" rel="noopener noreferrer" className="text-purple-300 hover:text-purple-100 underline block mb-4">
+                <p className="mb-4 text-purple-200">
+                  This is an abhang (devotional poem) by Sant Eknath, a
+                  16th-century Marathi saint-poet from Maharashtra, India.
+                </p>
+                <a
+                  href="https://www.aathavanitli-gani.com/Song/Are_Krishna_Are_Kanha"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-purple-300 hover:text-purple-100 underline block mb-4"
+                >
                   Read full abhang in Marathi
                 </a>
-                <h4 className="text-xl font-semibold mb-2">English Translation</h4>
+                <h4 className="text-xl font-semibold mb-2">
+                  English Translation
+                </h4>
                 <p className="whitespace-pre-line text-sm leading-relaxed text-purple-100 font-serif space-y-4">
-                  <span className="block font-bold text-lg text-purple-300">O Krishna! O Kanha! Enchanter of hearts</span>
-                  
-                  <span className="block">
-                    If saints come to your home, why exhaust them with talk?<br />
-                    If sugarcane tastes sweet, should you eat it roots and all?<br />
-                    If a loved one becomes a guest, should they stay for too long?<br />
-                    If one becomes the village chief, should they ruin the whole village?
+                  <span className="block font-bold text-lg text-purple-300">
+                    O Krishna! O Kanha! Enchanter of hearts
                   </span>
 
-                  <span className="block font-bold text-lg text-purple-300">O Krishna! O Kanha! Enchanter of hearts</span>
-                  
                   <span className="block">
-                    If God enters your being, should you speak nonsense?<br />
-                    If sandalwood becomes cool, should you grind and drink it?<br />
-                    If you wear saffron robes, should you deceive the world?<br />
-                    If a scorpion becomes fiery, should you embrace it to your throat?
+                    If saints come to your home, why exhaust them with talk?
+                    <br />
+                    If sugarcane tastes sweet, should you eat it roots and all?
+                    <br />
+                    If a loved one becomes a guest, should they stay for too
+                    long?
+                    <br />
+                    If one becomes the village chief, should they ruin the whole
+                    village?
                   </span>
 
-                  <span className="block font-bold text-lg text-purple-300">O Krishna! O Kanha! Enchanter of hearts</span>
-                  
+                  <span className="block font-bold text-lg text-purple-300">
+                    O Krishna! O Kanha! Enchanter of hearts
+                  </span>
+
                   <span className="block">
-                    If another&apos;s wife becomes beautiful, should you forcibly take her?<br />
-                    If a knife becomes golden, should you stab your own chest?<br />
+                    If God enters your being, should you speak nonsense?
+                    <br />
+                    If sandalwood becomes cool, should you grind and drink it?
+                    <br />
+                    If you wear saffron robes, should you deceive the world?
+                    <br />
+                    If a scorpion becomes fiery, should you embrace it to your
+                    throat?
+                  </span>
+
+                  <span className="block font-bold text-lg text-purple-300">
+                    O Krishna! O Kanha! Enchanter of hearts
+                  </span>
+
+                  <span className="block">
+                    If another&apos;s wife becomes beautiful, should you
+                    forcibly take her?
+                    <br />
+                    If a knife becomes golden, should you stab your own chest?
+                    <br />
                     If slippers become velvet, should you tie them to your head?
                   </span>
 
-                  <span className="block font-bold text-lg text-purple-300">O Krishna! O Kanha! Enchanter of hearts</span>
-                  
+                  <span className="block font-bold text-lg text-purple-300">
+                    O Krishna! O Kanha! Enchanter of hearts
+                  </span>
+
                   <span className="block">
-                    If a true guru becomes a relative, should you abandon good conduct?<br />
-                    If you meet God daily, should you show off to the world?<br />
-                    If you have a lamp at home, should you tie it to the roof?<br />
+                    If a true guru becomes a relative, should you abandon good
+                    conduct?
+                    <br />
+                    If you meet God daily, should you show off to the world?
+                    <br />
+                    If you have a lamp at home, should you tie it to the roof?
+                    <br />
                     Eknath Janardani says, recognize this Hari in secret
                   </span>
 
-                  <span className="block font-bold text-lg text-purple-300">O Krishna! O Kanha! Enchanter of hearts</span>
+                  <span className="block font-bold text-lg text-purple-300">
+                    O Krishna! O Kanha! Enchanter of hearts
+                  </span>
                 </p>
               </div>
             ) : (
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex-1 overflow-y-auto bg-purple-900 scrollbar-hide">
+                <style jsx global>{`
+                  .scrollbar-hide {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                  }
+                  .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}</style>
                 <LyricsAnimation
                   lyricTimings={lyricTimings}
                   lyricsData={lyricsData}
@@ -130,8 +176,8 @@ const SongPage: React.FC = () => {
               </div>
             )}
           </div>
-        </MobileFrame>
-        
+        </DeviceFrameset>
+
         <div className="mt-6 flex space-x-4">
           <button
             onClick={togglePlayPause}
@@ -147,7 +193,7 @@ const SongPage: React.FC = () => {
           </button>
         </div>
       </div>
-      
+
       <audio ref={audioRef} src="/areKrishanAreKanha.mp3" />
 
       {showPopup && (
@@ -157,7 +203,8 @@ const SongPage: React.FC = () => {
               Bhai रुको पहिले गाना सुनो फिर पढ़ लेना
               <br />
               <span className="text-gray-600 italic">
-                (Translation: Brother, wait, listen to the song first, then you can read)
+                (Translation: Brother, wait, listen to the song first, then you
+                can read)
               </span>
             </p>
             <button

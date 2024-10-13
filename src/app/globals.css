@@ -2,3 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "react-device-frameset/styles/marvel-devices.min.css";
