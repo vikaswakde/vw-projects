@@ -16,6 +16,7 @@ const SongPage: React.FC = () => {
 
     const updateTime = () => setCurrentTime(audio.currentTime);
     audio.addEventListener("timeupdate", updateTime);
+    audio.volume = 0.3; // Set default volume to 50%
     return () => audio.removeEventListener("timeupdate", updateTime);
   }, []);
 
