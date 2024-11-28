@@ -8,6 +8,7 @@ import "react-device-frameset/styles/marvel-devices.min.css";
 import { lyricTimings, lyricsData } from "../../song/test";
 import { iceIceBabyLyrics } from "../../../data/lyrics/iceIceBaby";
 import { LyricLine } from "../../../data/lyrics/iceIceBaby"; // Import LyricLine interface
+import { marathiLyrics } from "../../../data/lyrics/marathiLyricsHareKrishan"; // Import Marathi lyrics
 
 export default function PlayPage() {
   const params = useParams();
@@ -70,6 +71,11 @@ export default function PlayPage() {
       return {
         lyricTimings: iceIceBabyLyrics as LyricLine[], // Ensure correct type
         lyricsData: iceIceBabyLyrics as LyricLine[], // Ensure correct type
+      };
+    } else if (songId === "marathi-abhang") { // Check for Marathi song ID
+      return {
+        lyricTimings: marathiLyrics as LyricLine[], // Ensure correct type
+        lyricsData: marathiLyrics as LyricLine[], // Ensure correct type
       };
     }
     return {

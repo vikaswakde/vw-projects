@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface Word {
   text: string;
-  animation:'bounce' |'shake' | 'stagger' | 'fade';
+  animation?:'bounce' |'shake' | 'stagger' | 'fade';
 }
 
 interface LyricLine {
@@ -11,8 +11,8 @@ interface LyricLine {
   text: string;
   startTime: number;
   endTime: number;
-  animationType:  'bounce' |'shake' | 'stagger' | 'fade';
-  words: Word[];
+  animationType?:  'bounce' |'shake' | 'stagger' | 'fade';
+  words?: Word[];
 }
 
 interface LyricsAnimationProps {
@@ -47,12 +47,10 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
       const lineProgress =
         (timeInMs - currentLine.startTime) /
         (currentLine.endTime - currentLine.startTime);
-
       const line = lyricsData[lineIndex] as LyricLine;
-      const activeItem = Math.floor(lineProgress * line.words.length);
+      const activeItem = line.words ? Math.floor(lineProgress * line.words.length) : -1;
 
       setActiveItemIndex(activeItem);
-
       if (containerRef.current) {
         const lineElement = containerRef.current.children[
           lineIndex
@@ -100,7 +98,7 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
             transition={{ duration: 0.5, ease: "easeOut" }}
             className={`lyric-line mb-8 text-center max-w-[95%]`}
           >
-            {(line as LyricLine).words.map((word, wordIndex) => (
+            {(line as LyricLine)?.words?.map((word, wordIndex) => (
               <motion.span
                 key={wordIndex}
                 initial={{ opacity: 0 }} // Start with opacity 0 for fade-in effect

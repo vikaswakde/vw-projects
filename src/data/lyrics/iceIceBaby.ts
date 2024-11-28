@@ -1,6 +1,6 @@
 export interface Word {
     text: string;
-    animation: 'bounce' |'shake' | 'stagger' | 'fade';
+    animation?: 'bounce' |'shake' | 'stagger' | 'fade';
 }
 
 export interface LyricLine {
@@ -8,21 +8,9 @@ export interface LyricLine {
     text: string;
     startTime: number;
     endTime: number;
-    animationType:'bounce' |'shake' | 'stagger' | 'fade';
+    animationType?:'bounce' |'shake' | 'stagger' | 'fade';
     words: Word[];
 }
-
-
-// Define more dynamic animation types
-// type AnimationType = 
-//   | 'slideUp' 
-//   | 'slideDown'
-//   | 'bounce'
-//   | 'pulse'
-//   | 'shake'
-//   | 'stagger'
-//   | 'emphasis'
-//   | 'wave';
 
 
 export const iceIceBabyLyrics: LyricLine[] = [
