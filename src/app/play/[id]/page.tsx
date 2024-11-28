@@ -1,13 +1,13 @@
 "use client";
 
-import { useParams } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
-import LyricsAnimation from '../../components/LyricsAnimation';
+import { useParams } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import LyricsAnimation from "../../components/LyricsAnimation";
 import { DeviceFrameset } from "react-device-frameset";
 import "react-device-frameset/styles/marvel-devices.min.css";
 import { lyricTimings, lyricsData } from "../../song/test";
-import { iceIceBabyLyrics } from '../../../data/lyrics/iceIceBaby';
-import { LyricLine } from '../../../data/lyrics/iceIceBaby'; // Import LyricLine interface
+import { iceIceBabyLyrics } from "../../../data/lyrics/iceIceBaby";
+import { LyricLine } from "../../../data/lyrics/iceIceBaby"; // Import LyricLine interface
 
 export default function PlayPage() {
   const params = useParams();
@@ -66,15 +66,15 @@ export default function PlayPage() {
   };
 
   const getCurrentLyrics = () => {
-    if (songId === 'ice-ice-baby') {
+    if (songId === "ice-ice-baby") {
       return {
         lyricTimings: iceIceBabyLyrics as LyricLine[], // Ensure correct type
-        lyricsData: iceIceBabyLyrics as LyricLine[] // Ensure correct type
+        lyricsData: iceIceBabyLyrics as LyricLine[], // Ensure correct type
       };
     }
     return {
       lyricTimings: lyricTimings as LyricLine[], // Ensure correct type
-      lyricsData: lyricsData as unknown as LyricLine[] // Ensure correct type
+      lyricsData: lyricsData as unknown as LyricLine[], // Ensure correct type
     };
   };
 
@@ -96,12 +96,19 @@ export default function PlayPage() {
                 `}</style>
                 <h3 className="text-2xl font-bold mb-4">Taking a chance</h3>
                 <p className="mb-4 text-purple-200">
-                 I would love to contribute at Peerlist 😊
-
+                  I would love to contribute at Peerlist 😊
                 </p>
-              <p className="mb-4 text-purple-200">
-                Check out my GitHub: <a href="https://github.com/vikaswakde" className="text-blue-400 underline" target="_blank" rel="noopener noreferrer">https://github.com/vikaswakde</a>
-              </p>
+                <p className="mb-4 text-purple-200">
+                  Check out my GitHub:{" "}
+                  <a
+                    href="https://github.com/vikaswakde"
+                    className="text-blue-400 underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://github.com/vikaswakde
+                  </a>
+                </p>
               </div>
             ) : (
               <div className="flex-1 overflow-y-auto bg-purple-900 scrollbar-hide">
@@ -115,8 +122,12 @@ export default function PlayPage() {
                   }
                 `}</style>
                 <LyricsAnimation
-                  lyricTimings={getCurrentLyrics().lyricTimings as unknown as LyricLine[]}
-                  lyricsData={getCurrentLyrics().lyricsData as unknown as LyricLine[]}
+                  lyricTimings={
+                    getCurrentLyrics().lyricTimings as unknown as LyricLine[]
+                  }
+                  lyricsData={
+                    getCurrentLyrics().lyricsData as unknown as LyricLine[]
+                  }
                   currentTime={currentTime}
                   isPlaying={isPlaying}
                 />
@@ -136,13 +147,17 @@ export default function PlayPage() {
             onClick={toggleInfo}
             className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105"
           >
-            {showInfo || isAudioEnded ? "Show Lyrics" : "Song Info"}
+            {showInfo || isAudioEnded ? "Know More" : "Song Info"}
           </button>
         </div>
 
-        <audio 
-          ref={audioRef} 
-          src={songId === 'ice-ice-baby' ? "/ice-ice-baby.mp3" : "/areKrishanAreKanha.mp3"} 
+        <audio
+          ref={audioRef}
+          src={
+            songId === "ice-ice-baby"
+              ? "/ice-ice-baby.mp3"
+              : "/areKrishanAreKanha.mp3"
+          }
         />
       </div>
 
