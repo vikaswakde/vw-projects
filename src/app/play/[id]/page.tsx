@@ -94,10 +94,14 @@ export default function PlayPage() {
                     scrollbar-width: none;
                   }
                 `}</style>
-                <h3 className="text-2xl font-bold mb-4">About this Song</h3>
+                <h3 className="text-2xl font-bold mb-4">Taking a chance</h3>
                 <p className="mb-4 text-purple-200">
-                  Song information goes here
+                 I would love to contribute at Peerlist 😊
+
                 </p>
+              <p className="mb-4 text-purple-200">
+                Check out my GitHub: <a href="https://github.com/vikaswakde" className="text-blue-400 underline" target="_blank" rel="noopener noreferrer">https://github.com/vikaswakde</a>
+              </p>
               </div>
             ) : (
               <div className="flex-1 overflow-y-auto bg-purple-900 scrollbar-hide">
