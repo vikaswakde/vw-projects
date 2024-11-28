@@ -1,28 +1,28 @@
-import React from 'react';
-import SongCard from './components/SongCard';
+import React from "react";
+import SongCard from "./components/SongCard";
 
 const songs = [
   {
-    id: 'marathi-abhang',
-    title: 'Are Krishna Are Kanha',
-    artist: 'Sant Eknath',
-    language: 'marathi',
-    coverImage: '/covers/marathi-abhang.jpg'  // Add cover image if you have one
+    id: "marathi-abhang",
+    title: "Are Krishna Are Kanha",
+    artist: "Sant Eknath",
+    language: "marathi",
+    coverImage: "/hare-krishna-hare-rama-cover.jpeg", // Add cover image if you have one
   },
   {
-    id: 'ice-ice-baby',
-    title: 'Ice Ice Baby',
-    artist: 'Vanilla Ice',
-    language: 'english',
-    coverImage: '/covers/ice-ice-baby.jpg'  // Add cover image if you have one
+    id: "ice-ice-baby",
+    title: "Ice Ice Baby",
+    artist: "Vanilla Ice",
+    language: "english",
+    coverImage: "/vanilla-ice.jpeg", // Add cover image if you have one
   },
   {
-    id: 'satyanarayanchi-katha',
-    title: 'Satyanarayanchi Katha',
-    artist: 'Prahlad Shinde',
-    language: 'marathi',
-    coverImage: '/covers/satyanarayanchi-katha.jpg'  // Add cover image if you have one
-  }
+    id: "satyanarayanchi-katha",
+    title: "Satyanarayanchi Katha",
+    artist: "Prahlad Shinde",
+    language: "marathi",
+    coverImage: "/satya-katha.jpeg", // Add cover image if you have one
+  },
 ];
 
 export default function Home() {

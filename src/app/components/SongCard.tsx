@@ -1,5 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 interface SongCardProps {
   title: string;
@@ -9,13 +10,25 @@ interface SongCardProps {
   coverImage?: string;
 }
 
-const SongCard: React.FC<SongCardProps> = ({ title, artist, language, id, coverImage }) => {
+const SongCard: React.FC<SongCardProps> = ({
+  title,
+  artist,
+  language,
+  id,
+  coverImage,
+}) => {
   return (
     <Link href={`/play/${id}`}>
       <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 w-64 cursor-pointer transform hover:scale-105">
         <div className="h-48 bg-purple-600 flex items-center justify-center">
           {coverImage ? (
-            <img src={coverImage} alt={title} className="w-full h-full object-cover" />
+            <Image
+              src={coverImage}
+              alt={title}
+              width={500}
+              height={500}
+              className="w-full h-full object-cover"
+            />
           ) : (
             <div className="text-white text-4xl font-bold">{title[0]}</div>
           )}
@@ -30,4 +43,4 @@ const SongCard: React.FC<SongCardProps> = ({ title, artist, language, id, coverI
   );
 };
 
-export default SongCard; 
+export default SongCard;
