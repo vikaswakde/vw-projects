@@ -111,8 +111,8 @@ export default function PlayPage() {
                   }
                 `}</style>
                 <LyricsAnimation
-                  lyricTimings={getCurrentLyrics().lyricTimings}
-                  lyricsData={getCurrentLyrics().lyricsData}
+                  lyricTimings={getCurrentLyrics().lyricTimings as unknown as LyricLine[]}
+                  lyricsData={getCurrentLyrics().lyricsData as unknown as LyricLine[]}
                   currentTime={currentTime}
                   isPlaying={isPlaying}
                 />

@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface Word {
+  text: string;
+  animation:'bounce' |'shake' | 'stagger' | 'fade';
+}
+
 interface LyricLine {
   id: string;
   text: string;
   startTime: number;
   endTime: number;
-  animationType: string;
-}
-
-interface LyricItem {
-  text: string;
+  animationType:  'bounce' |'shake' | 'stagger' | 'fade';
+  words: Word[];
 }
 
 interface LyricsAnimationProps {
   lyricTimings: LyricLine[];
-  lyricsData: (LyricLine | LyricItem[])[];
+  lyricsData: (LyricLine | Word[])[];
   currentTime: number;
   isPlaying: boolean;
 }
@@ -30,21 +32,6 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
   const [activeItemIndex, setActiveItemIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Helper function to check if line is in the new format
-  const isNewFormat = (line: LyricLine | LyricItem[]): line is LyricLine => {
-    return typeof line === 'object' && 'text' in line;
-  };
-
-  // Convert line to array format if it's not already
-  const getLineContent = (line: LyricLine | LyricItem[]): LyricItem[] => {
-    if (isNewFormat(line)) {
-      // New format (Ice Ice Baby)
-      return [{ text: line.text }];
-    }
-    // Old format (Marathi song)
-    return line;
-  };
-
   useEffect(() => {
     if (!isPlaying) return;
 
@@ -56,23 +43,26 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
     if (lineIndex !== -1) {
       setActiveLineIndex(lineIndex);
       const currentLine = lyricTimings[lineIndex];
-      // const lineDuration = (currentLine.endTime - currentLine.startTime) / 1000;
-      
-      const lineProgress = (timeInMs - currentLine.startTime) / (currentLine.endTime - currentLine.startTime);
 
-      const line = getLineContent(lyricsData[lineIndex]);
-      const activeItem = Math.floor(lineProgress * line.length);
+      const lineProgress =
+        (timeInMs - currentLine.startTime) /
+        (currentLine.endTime - currentLine.startTime);
+
+      const line = lyricsData[lineIndex] as LyricLine;
+      const activeItem = Math.floor(lineProgress * line.words.length);
 
       setActiveItemIndex(activeItem);
 
       if (containerRef.current) {
-        const lineElement = containerRef.current.children[lineIndex] as HTMLElement;
+        const lineElement = containerRef.current.children[
+          lineIndex
+        ] as HTMLElement;
         if (lineElement) {
           lineElement.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }
     }
-  }, [currentTime, lyricTimings, lyricsData, isPlaying, getLineContent]);
+  }, [currentTime, lyricTimings, lyricsData, isPlaying]);
 
   return (
     <div
@@ -86,7 +76,7 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
       }}
     >
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap');
+        @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap");
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
@@ -110,27 +100,28 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
             transition={{ duration: 0.5, ease: "easeOut" }}
             className={`lyric-line mb-8 text-center max-w-[95%]`}
           >
-            {getLineContent(line).map((item, itemIndex) => (
+            {(line as LyricLine).words.map((word, wordIndex) => (
               <motion.span
-                key={itemIndex}
+                key={wordIndex}
+                initial={{ opacity: 0 }} // Start with opacity 0 for fade-in effect
                 animate={{
-                  color:
+                  opacity:
                     isPlaying &&
                     lineIndex === activeLineIndex &&
-                    itemIndex <= activeItemIndex
-                      ? "#ffffff"
-                      : "rgba(255,255,255,0.5)",
-                  textShadow:
-                    isPlaying &&
-                    lineIndex === activeLineIndex &&
-                    itemIndex <= activeItemIndex
-                      ? "0 0 8px rgba(255,255,255,0.3)"
-                      : "none",
+                    wordIndex <= activeItemIndex
+                      ? 1 // Fade in when the word is active
+                      : 0.5, // Keep it hidden otherwise
+                  y: isPlaying && lineIndex === activeLineIndex && wordIndex <= activeItemIndex 
+                    ? (word.animation === 'bounce' ? [0, -10, 0] : 
+                       word.animation === 'shake' ? [0, 5, -5, 5, 0] : 
+                       word.animation === 'stagger' ? [0, -5, 5, -5, 0] : 
+                       0) 
+                    : 0, // Apply specific animation based on word.animation
                 }}
-                transition={{ duration: 0.1 }}
+                transition={{ duration: 0.1, delay: wordIndex * 0.05 }}
                 className="inline-block mr-1"
               >
-                {item.text}
+                {word.text}
               </motion.span>
             ))}
           </motion.div>
