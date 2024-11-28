@@ -1,9 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface LyricLine {
+  id: string;
+  text: string;
+  startTime: number;
+  endTime: number;
+  animationType: string;
+}
+
+interface LyricItem {
+  text: string;
+}
+
 interface LyricsAnimationProps {
-  lyricTimings: Array<{ startTime: number; endTime: number; text: string }>;
-  lyricsData: Array<Array<{ text: string; type: string }>>;
+  lyricTimings: LyricLine[];
+  lyricsData: (LyricLine | LyricItem[])[];
   currentTime: number;
   isPlaying: boolean;
 }
@@ -18,36 +30,49 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
   const [activeItemIndex, setActiveItemIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Helper function to check if line is in the new format
+  const isNewFormat = (line: LyricLine | LyricItem[]): line is LyricLine => {
+    return typeof line === 'object' && 'text' in line;
+  };
+
+  // Convert line to array format if it's not already
+  const getLineContent = (line: LyricLine | LyricItem[]): LyricItem[] => {
+    if (isNewFormat(line)) {
+      // New format (Ice Ice Baby)
+      return [{ text: line.text }];
+    }
+    // Old format (Marathi song)
+    return line;
+  };
+
   useEffect(() => {
     if (!isPlaying) return;
 
-    const lineIndex = lyricTimings.findIndex(
-      (line) => currentTime >= line.startTime && currentTime < line.endTime
-    );
+    const timeInMs = currentTime * 1000;
+    const lineIndex = lyricTimings.findIndex((line) => {
+      return timeInMs >= line.startTime && timeInMs <= line.endTime;
+    });
 
     if (lineIndex !== -1) {
       setActiveLineIndex(lineIndex);
-      const lineDuration =
-        lyricTimings[lineIndex].endTime - lyricTimings[lineIndex].startTime;
-      const lineProgress =
-        (currentTime - lyricTimings[lineIndex].startTime) / lineDuration;
+      const currentLine = lyricTimings[lineIndex];
+      // const lineDuration = (currentLine.endTime - currentLine.startTime) / 1000;
+      
+      const lineProgress = (timeInMs - currentLine.startTime) / (currentLine.endTime - currentLine.startTime);
 
-      const line = lyricsData[lineIndex];
+      const line = getLineContent(lyricsData[lineIndex]);
       const activeItem = Math.floor(lineProgress * line.length);
 
       setActiveItemIndex(activeItem);
 
-      // Scroll to active line
       if (containerRef.current) {
-        const lineElement = containerRef.current.children[
-          lineIndex
-        ] as HTMLElement;
+        const lineElement = containerRef.current.children[lineIndex] as HTMLElement;
         if (lineElement) {
           lineElement.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }
     }
-  }, [currentTime, lyricTimings, lyricsData, isPlaying]);
+  }, [currentTime, lyricTimings, lyricsData, isPlaying, getLineContent]);
 
   return (
     <div
@@ -85,7 +110,7 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
             transition={{ duration: 0.5, ease: "easeOut" }}
             className={`lyric-line mb-8 text-center max-w-[95%]`}
           >
-            {line.map((item, itemIndex) => (
+            {getLineContent(line).map((item, itemIndex) => (
               <motion.span
                 key={itemIndex}
                 animate={{
