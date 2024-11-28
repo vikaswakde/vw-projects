@@ -9,6 +9,7 @@ import { lyricTimings, lyricsData } from "../../song/test";
 import { iceIceBabyLyrics } from "../../../data/lyrics/iceIceBaby";
 import { LyricLine } from "../../../data/lyrics/iceIceBaby"; // Import LyricLine interface
 import { marathiLyrics } from "../../../data/lyrics/marathiLyricsHareKrishan"; // Import Marathi lyrics
+import { satyanarayanchiKathaLyrics } from "@/data/lyrics/SatyanarayanchiKatha";
 
 export default function PlayPage() {
   const params = useParams();
@@ -69,18 +70,23 @@ export default function PlayPage() {
   const getCurrentLyrics = () => {
     if (songId === "ice-ice-baby") {
       return {
-        lyricTimings: iceIceBabyLyrics as LyricLine[], // Ensure correct type
-        lyricsData: iceIceBabyLyrics as LyricLine[], // Ensure correct type
+        lyricTimings: iceIceBabyLyrics as LyricLine[],
+        lyricsData: iceIceBabyLyrics as LyricLine[],
       };
     } else if (songId === "marathi-abhang") { // Check for Marathi song ID
       return {
-        lyricTimings: marathiLyrics as LyricLine[], // Ensure correct type
-        lyricsData: marathiLyrics as LyricLine[], // Ensure correct type
+        lyricTimings: marathiLyrics as LyricLine[],
+        lyricsData: marathiLyrics as LyricLine[],
+      };
+    } else if (songId === "satyanarayanchi-katha") {
+      return {
+        lyricTimings: satyanarayanchiKathaLyrics as LyricLine[],
+        lyricsData: satyanarayanchiKathaLyrics as LyricLine[],
       };
     }
     return {
-      lyricTimings: lyricTimings as LyricLine[], // Ensure correct type
-      lyricsData: lyricsData as unknown as LyricLine[], // Ensure correct type
+      lyricTimings: lyricTimings as LyricLine[],
+      lyricsData: lyricsData as unknown as LyricLine[],
     };
   };
 
@@ -162,6 +168,8 @@ export default function PlayPage() {
           src={
             songId === "ice-ice-baby"
               ? "/ice-ice-baby.mp3"
+              : songId === "satyanarayanchi-katha"
+              ? "/satyanarayanchi-katha.mp3"
               : "/areKrishanAreKanha.mp3"
           }
         />

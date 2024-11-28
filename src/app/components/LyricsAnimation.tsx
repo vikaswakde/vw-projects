@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface Word {
   text: string;
-  animation?:'bounce' |'shake' | 'stagger' | 'fade';
+  animation?: "bounce" | "shake" | "stagger" | "fade";
 }
 
 interface LyricLine {
@@ -11,7 +11,7 @@ interface LyricLine {
   text: string;
   startTime: number;
   endTime: number;
-  animationType?:  'bounce' |'shake' | 'stagger' | 'fade';
+  animationType?: "bounce" | "shake" | "stagger" | "fade";
   words?: Word[];
 }
 
@@ -48,7 +48,9 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
         (timeInMs - currentLine.startTime) /
         (currentLine.endTime - currentLine.startTime);
       const line = lyricsData[lineIndex] as LyricLine;
-      const activeItem = line.words ? Math.floor(lineProgress * line.words.length) : -1;
+      const activeItem = line.words
+        ? Math.floor(lineProgress * line.words.length)
+        : -1;
 
       setActiveItemIndex(activeItem);
       if (containerRef.current) {
@@ -109,12 +111,18 @@ const LyricsAnimation: React.FC<LyricsAnimationProps> = ({
                     wordIndex <= activeItemIndex
                       ? 1 // Fade in when the word is active
                       : 0.5, // Keep it hidden otherwise
-                  y: isPlaying && lineIndex === activeLineIndex && wordIndex <= activeItemIndex 
-                    ? (word.animation === 'bounce' ? [0, -10, 0] : 
-                       word.animation === 'shake' ? [0, 5, -5, 5, 0] : 
-                       word.animation === 'stagger' ? [0, -5, 5, -5, 0] : 
-                       0) 
-                    : 0, // Apply specific animation based on word.animation
+                  y:
+                    isPlaying &&
+                    lineIndex === activeLineIndex &&
+                    wordIndex <= activeItemIndex
+                      ? word.animation === "bounce"
+                        ? [0, -10, 0]
+                        : word.animation === "shake"
+                        ? [0, 5, -5, 5, 0]
+                        : word.animation === "stagger"
+                        ? [0, -5, 5, -5, 0]
+                        : 0
+                      : 0, // Apply specific animation based on word.animation
                 }}
                 transition={{ duration: 0.1, delay: wordIndex * 0.05 }}
                 className="inline-block mr-1"

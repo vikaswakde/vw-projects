@@ -15,6 +15,13 @@ const songs = [
     artist: 'Vanilla Ice',
     language: 'english',
     coverImage: '/covers/ice-ice-baby.jpg'  // Add cover image if you have one
+  },
+  {
+    id: 'satyanarayanchi-katha',
+    title: 'Satyanarayanchi Katha',
+    artist: 'Prahlad Shinde',
+    language: 'marathi',
+    coverImage: '/covers/satyanarayanchi-katha.jpg'  // Add cover image if you have one
   }
 ];
 
